@@ -48,9 +48,9 @@ function getWeather() {
         const weatherItem = document.createElement('div');
         weatherItem.classList.add('weather-item');
         weatherItem.innerHTML = `
-          <p>${day}</p>
+          <p id="day">${day}</p>
           <p>${description}</p>
-          <p>${temperature}°C</p>
+          <p id="temp">${temperature}°C</p>
         `;
 
         // Append weather item to weather info container
