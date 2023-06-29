@@ -44,7 +44,8 @@ function getWeather() {
         const temperature = Math.round(forecastItem[0].main.temp - 273.15);
         const description = forecastItem[0].weather[0].description;
         const minTemperature = Math.round(forecastItem[0].main.temp_min - 273.15);
-        const maxTemperature = Math.round(forecastItem[0].main.temp_max - 273.15);
+        const maxTemperature = Math.round(forecastItem[0].main.temp_max - 269.15);
+        const windSpeed = forecastItem[0].wind.speed;
 
         // Create weather item element
         const weatherItem = document.createElement('div');
@@ -55,6 +56,7 @@ function getWeather() {
           <p id="temp">${temperature}°C</p>
           <p id="min">Min: ${minTemperature}°C</p>
           <p id="max">Max: ${maxTemperature}°C</p>
+          <p id="wind">Wind Speed: ${windSpeed} m/s</p>
         `;
 
         // Append weather item to weather info container
@@ -150,6 +152,24 @@ function initializeApp() {
 
 // Call initializeApp() when the page loads
 window.addEventListener('load', initializeApp);
+
+// Function to get minimum and maximum temperatures of a day
+function getMinMaxTemperatures(forecast) {
+  let minTemperature = Infinity;
+  let maxTemperature = -Infinity;
+
+  forecast.forEach(forecastItem => {
+    const temperature = Math.round(forecastItem.main.temp - 273.15);
+    minTemperature = Math.min(minTemperature, temperature);
+    maxTemperature = Math.max(maxTemperature, temperature);
+  });
+
+  return {
+    minTemperature,
+    maxTemperature
+  };
+}
+
   
 
   // my unique unsplash key is: STSm40hyPGKvpCl9Puek4EvD9emy9To5OKKDLSa-7uc
