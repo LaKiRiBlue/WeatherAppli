@@ -43,6 +43,8 @@ function getWeather() {
         const day = date.toLocaleDateString('en-US', { weekday: 'long' });
         const temperature = Math.round(forecastItem[0].main.temp - 273.15);
         const description = forecastItem[0].weather[0].description;
+        const minTemperature = Math.round(forecastItem[0].main.temp_min - 273.15);
+        const maxTemperature = Math.round(forecastItem[0].main.temp_max - 273.15);
 
         // Create weather item element
         const weatherItem = document.createElement('div');
@@ -51,6 +53,8 @@ function getWeather() {
           <p id="day">${day}</p>
           <p>${description}</p>
           <p id="temp">${temperature}°C</p>
+          <p id="min">Min: ${minTemperature}°C</p>
+          <p id="max">Max: ${maxTemperature}°C</p>
         `;
 
         // Append weather item to weather info container
@@ -108,6 +112,44 @@ function getCityPhoto(city) {
         cityPhoto.innerHTML = 'Photo not available';
       });
   }
+  // Event listeners
+submitBtn.addEventListener('click', () => {
+  saveUserChoice(cityInput.value.trim());
+  getWeather();
+});
+cityInput.addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) {
+    saveUserChoice(cityInput.value.trim());
+    getWeather();
+  }
+});
+
+// Function to save the user's city choice in local storage
+function saveUserChoice(city) {
+  localStorage.setItem('userCity', city);
+}
+
+// Function to get the user's city choice from local storage
+function getUserChoice() {
+  return localStorage.getItem('userCity');
+}
+
+// Function to set the city input value from local storage
+function setCityInputValue() {
+  const userCity = getUserChoice();
+  if (userCity) {
+    cityInput.value = userCity;
+  }
+}
+
+// Function to initialize the application
+function initializeApp() {
+  setCityInputValue();
+  getWeather();
+}
+
+// Call initializeApp() when the page loads
+window.addEventListener('load', initializeApp);
   
 
   // my unique unsplash key is: STSm40hyPGKvpCl9Puek4EvD9emy9To5OKKDLSa-7uc
