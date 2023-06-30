@@ -40,8 +40,8 @@ body {
   #submit-btn {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
-    color: #fff;
+    background-color: #bd01fc;
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -76,7 +76,7 @@ body {
     border: 2px solid white;
     border-radius: 10px;
     margin-top: 15px;
-    width: 250px;
+    width: 440px;
     background-color:transparent;
     box-shadow: 40px 40px 50px -10px violet inset;
     transition: transform 0.3s ease;
@@ -88,6 +88,14 @@ body {
   #day {
     font-size: 30px;
     font-weight: bold;
+    text-shadow: 0px -4px 7px white;
+  }
+  #date{
+    font-size: small;
+    color: #fffeff;
+  }
+  #description{
+    font-size: 28px;
     text-shadow: 0px -4px 7px white;
   }
   #temp {

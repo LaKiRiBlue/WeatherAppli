@@ -44,7 +44,7 @@ function getWeather() {
         const temperature = Math.round(forecastItem[0].main.temp - 273.15);
         const description = forecastItem[0].weather[0].description;
         const minTemperature = Math.round(forecastItem[0].main.temp_min - 273.15);
-        const maxTemperature = Math.round(forecastItem[0].main.temp_max - 269.15);
+        const maxTemperature = Math.round(forecastItem[0].main.temp_max - 273.15);
         const windSpeed = forecastItem[0].wind.speed;
 
         // Create weather item element
@@ -52,7 +52,8 @@ function getWeather() {
         weatherItem.classList.add('weather-item');
         weatherItem.innerHTML = `
           <p id="day">${day}</p>
-          <p>${description}</p>
+          <p id="date">${date.toLocaleDateString('en-GB')}</p>
+          <p id="description">${description}</p>
           <p id="temp">${temperature}°C</p>
           <p id="min">Min: ${minTemperature}°C</p>
           <p id="max">Max: ${maxTemperature}°C</p>
@@ -71,6 +72,7 @@ function getWeather() {
       alert(error.message);
     });
 }
+
 
 // Function to group forecast data by day
 function groupForecastByDay(forecast) {
