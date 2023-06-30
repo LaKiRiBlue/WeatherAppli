@@ -43,27 +43,29 @@ function getWeather() {
         const day = date.toLocaleDateString('en-US', { weekday: 'long' });
         const temperature = Math.round(forecastItem[0].main.temp - 273.15);
         const description = forecastItem[0].weather[0].description;
-        const minTemperature = Math.round(forecastItem[0].main.temp_min - 273.15);
-        const maxTemperature = Math.round(forecastItem[0].main.temp_max - 273.15);
+        const iconCode = forecastItem[0].weather[0].icon;
+      
+        const { minTemperature, maxTemperature } = getMinMaxTemperatures(forecastItem);
+      
+        // Retrieve wind speed
         const windSpeed = forecastItem[0].wind.speed;
-
+      
         // Create weather item element
         const weatherItem = document.createElement('div');
         weatherItem.classList.add('weather-item');
         weatherItem.innerHTML = `
           <p id="day">${day}</p>
-          <p id="date">${date.toLocaleDateString('en-GB')}</p>
+          <i class="wi wi-owm-${iconCode}"></i>
           <p id="description">${description}</p>
           <p id="temp">${temperature}°C</p>
           <p id="min">Min: ${minTemperature}°C</p>
           <p id="max">Max: ${maxTemperature}°C</p>
           <p id="wind">Wind Speed: ${windSpeed} m/s</p>
         `;
-
+      
         // Append weather item to weather info container
         weatherInfo.appendChild(weatherItem);
       });
-
       // Display city photo
       getCityPhoto(city);
     })
@@ -72,8 +74,6 @@ function getWeather() {
       alert(error.message);
     });
 }
-
-
 // Function to group forecast data by day
 function groupForecastByDay(forecast) {
   const dailyForecast = {};
@@ -116,17 +116,7 @@ function getCityPhoto(city) {
         cityPhoto.innerHTML = 'Photo not available';
       });
   }
-  // Event listeners
-submitBtn.addEventListener('click', () => {
-  saveUserChoice(cityInput.value.trim());
-  getWeather();
-});
-cityInput.addEventListener('keydown', (event) => {
-  if (event.keyCode === 13) {
-    saveUserChoice(cityInput.value.trim());
-    getWeather();
-  }
-});
+
 
 // Function to save the user's city choice in local storage
 function saveUserChoice(city) {
